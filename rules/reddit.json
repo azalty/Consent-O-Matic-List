@@ -1,0 +1,100 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "reddit": {
+        "detectors": [
+            {
+                "presentMatcher": [
+                    {
+                        "type": "css",
+                        "target": {
+                            "selector": "shreddit-async-loader[bundlename=\"reddit_cookie_banner\"]"
+                        }
+                    }
+                ]
+            }
+        ],
+        "methods": [
+            {
+                "action": {
+                    "type": "hide",
+                    "target": {
+                        "selector": "shreddit-async-loader[bundlename=\"reddit_cookie_banner\"]"
+                    }
+                },
+                "name": "HIDE_CMP"
+            },
+            {
+                "name": "OPEN_OPTIONS"
+            },
+            {
+                "name": "DO_CONSENT"
+            },
+            {
+                "action": {
+                    "type": "consent",
+                    "consents": [
+                        {
+                            "trueAction": {
+                                "type": "consent",
+                                "consents": [
+                                    {
+                                        "trueAction": {
+                                            "type": "consent",
+                                            "consents": [
+                                                {
+                                                    "trueAction": {
+                                                        "type": "click",
+                                                        "target": {
+                                                            "selector": "shreddit-interactable-element#accept-all-cookies-button > button"
+                                                        },
+                                                        "parent": {
+                                                            "selector": "reddit-cookie-banner"
+                                                        }
+                                                    },
+                                                    "falseAction": {
+                                                        "type": "click",
+                                                        "target": {
+                                                            "selector": "shreddit-interactable-element#reject-nonessential-cookies-button > button"
+                                                        },
+                                                        "parent": {
+                                                            "selector": "reddit-cookie-banner"
+                                                        }
+                                                    },
+                                                    "type": "F"
+                                                }
+                                            ]
+                                        },
+                                        "falseAction": {
+                                            "type": "click",
+                                            "target": {
+                                                "selector": "shreddit-interactable-element#reject-nonessential-cookies-button > button"
+                                            },
+                                            "parent": {
+                                                "selector": "reddit-cookie-banner"
+                                            }
+                                        },
+                                        "type": "B"
+                                    }
+                                ]
+                            },
+                            "falseAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "shreddit-interactable-element#reject-nonessential-cookies-button > button"
+                                },
+                                "parent": {
+                                    "selector": "reddit-cookie-banner"
+                                }
+                            },
+                            "type": "A"
+                        }
+                    ]
+                },
+                "name": "SAVE_CONSENT"
+            },
+            {
+                "name": "UTILITY"
+            }
+        ]
+    }
+}

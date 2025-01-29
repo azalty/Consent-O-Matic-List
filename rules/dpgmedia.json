@@ -1,0 +1,213 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "dpgmedia": {
+        "detectors": [
+            {
+                "presentMatcher": [
+                    {
+                        "type": "css",
+                        "target": {
+                            "selector": "#pg-modal"
+                        },
+                        "parent": {
+                            "selector": "#pg-host-shadow-root"
+                        }
+                    }
+                ],
+                "showingMatcher": [
+                    {
+                        "type": "css",
+                        "target": {
+                            "selector": "#pg-modal"
+                        },
+                        "parent": {
+                            "selector": "#pg-host-shadow-root"
+                        }
+                    }
+                ]
+            }
+        ],
+        "methods": [
+            {
+                "action": {
+                    "type": "hide",
+                    "target": {
+                        "selector": "#pg-host-shadow-root",
+                        "displayFilter": true
+                    }
+                },
+                "name": "HIDE_CMP"
+            },
+            {
+                "action": {
+                    "type": "ifallowall",
+                    "trueAction": {
+                        "type": "click",
+                        "target": {
+                            "selector": "#pg-accept-btn"
+                        },
+                        "parent": {
+                            "selector": "#pg-host-shadow-root"
+                        }
+                    },
+                    "falseAction": {
+                        "type": "click",
+                        "target": {
+                            "selector": "#pg-modal #pg-first-layer #pg-footer #pg-configure-btn"
+                        },
+                        "parent": {
+                            "selector": "#pg-host-shadow-root"
+                        }
+                    }
+                },
+                "name": "OPEN_OPTIONS"
+            },
+            {
+                "action": {
+                    "type": "ifallowall",
+                    "falseAction": {
+                        "type": "ifallownone",
+                        "trueAction": {
+                            "type": "click",
+                            "target": {
+                                "selector": "#pg-reject-btn"
+                            },
+                            "parent": {
+                                "selector": "#pg-host-shadow-root"
+                            }
+                        },
+                        "falseAction": {
+                            "type": "consent",
+                            "consents": [
+                                {
+                                    "trueAction": {
+                                        "type": "click",
+                                        "target": {
+                                            "selector": "#stack-accept-all"
+                                        },
+                                        "parent": {
+                                            "selector": "#pg-host-shadow-root"
+                                        }
+                                    },
+                                    "falseAction": {
+                                        "type": "click",
+                                        "target": {
+                                            "selector": "#stack-refuse-all"
+                                        },
+                                        "parent": {
+                                            "selector": "#pg-host-shadow-root"
+                                        }
+                                    },
+                                    "type": "F"
+                                },
+                                {
+                                    "matcher": {
+                                        "type": "checkbox",
+                                        "target": {
+                                            "selector": "#purpose-row-TCF_1 input"
+                                        },
+                                        "parent": {
+                                            "selector": "#pg-host-shadow-root"
+                                        }
+                                    },
+                                    "toggleAction": {
+                                        "type": "click",
+                                        "target": {
+                                            "selector": "#purpose-row-TCF_1 input"
+                                        },
+                                        "parent": {
+                                            "selector": "#pg-host-shadow-root"
+                                        }
+                                    },
+                                    "type": "D"
+                                },
+                                {
+                                    "matcher": {
+                                        "type": "checkbox",
+                                        "target": {
+                                            "selector": "#purpose-row-MARKETING input"
+                                        },
+                                        "parent": {
+                                            "selector": "#pg-host-shadow-root"
+                                        }
+                                    },
+                                    "toggleAction": {
+                                        "type": "click",
+                                        "target": {
+                                            "selector": "#purpose-row-MARKETING input"
+                                        },
+                                        "parent": {
+                                            "selector": "#pg-host-shadow-root"
+                                        }
+                                    },
+                                    "type": "F"
+                                },
+                                {
+                                    "matcher": {
+                                        "type": "checkbox",
+                                        "target": {
+                                            "selector": "#purpose-row-PERSONALISATION input"
+                                        },
+                                        "parent": {
+                                            "selector": "#pg-host-shadow-root"
+                                        }
+                                    },
+                                    "toggleAction": {
+                                        "type": "click",
+                                        "target": {
+                                            "selector": "#purpose-row-PERSONALISATION input"
+                                        },
+                                        "parent": {
+                                            "selector": "#pg-host-shadow-root"
+                                        }
+                                    },
+                                    "type": "E"
+                                },
+                                {
+                                    "matcher": {
+                                        "type": "checkbox",
+                                        "target": {
+                                            "selector": "#purpose-row-SOCIAL_MEDIA input"
+                                        },
+                                        "parent": {
+                                            "selector": "#pg-host-shadow-root"
+                                        }
+                                    },
+                                    "toggleAction": {
+                                        "type": "click",
+                                        "target": {
+                                            "selector": "#purpose-row-SOCIAL_MEDIA input"
+                                        },
+                                        "parent": {
+                                            "selector": "#pg-host-shadow-root"
+                                        }
+                                    },
+                                    "type": "X"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "name": "DO_CONSENT"
+            },
+            {
+                "action": {
+                    "type": "ifallowall",
+                    "falseAction": {
+                        "type": "click",
+                        "target": {
+                            "selector": "#pg-modal #pg-second-layer #pg-footer #pg-reject-btn"
+                        },
+                        "parent": {
+                            "selector": "#pg-host-shadow-root"
+                        }
+                    }
+                },
+                "name": "SAVE_CONSENT"
+            },
+            {
+                "name": "UTILITY"
+            }
+        ]
+    }
+}

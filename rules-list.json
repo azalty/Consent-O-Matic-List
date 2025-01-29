@@ -1,5 +1,7 @@
 {
   "references": [
+    "https://raw.githubusercontent.com/azalty/Consent-O-Matic-List/main/rules/clym-1.json",
+    "https://raw.githubusercontent.com/azalty/Consent-O-Matic-List/main/rules/dpgmedia.json",
     "https://raw.githubusercontent.com/azalty/Consent-O-Matic-List/main/rules/plex.tv-1.json",
     "https://raw.githubusercontent.com/azalty/Consent-O-Matic-List/main/rules/plex.tv-2.json",
     "https://raw.githubusercontent.com/azalty/Consent-O-Matic-List/main/rules/reddit.json"

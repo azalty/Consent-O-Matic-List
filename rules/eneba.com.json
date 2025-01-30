@@ -1,0 +1,173 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "eneba.com": {
+        "detectors": [
+            {
+                "presentMatcher": [
+                    {
+                        "type": "url",
+                        "url": [
+                            "[\\.\\/]eneba\\.com$"
+                        ],
+                        "regexp": true
+                    },
+                    {
+                        "type": "css",
+                        "target": {
+                            "selector": ".oVRXv6"
+                        }
+                    }
+                ],
+                "showingMatcher": [
+                    {
+                        "type": "css",
+                        "target": {
+                            "selector": ".oVRXv6"
+                        }
+                    }
+                ]
+            }
+        ],
+        "methods": [
+            {
+                "action": {
+                    "type": "list",
+                    "actions": [
+                        {
+                            "type": "hide",
+                            "target": {
+                                "selector": ".oVRXv6"
+                            }
+                        }
+                    ]
+                },
+                "name": "HIDE_CMP"
+            },
+            {
+                "action": {
+                    "type": "ifallowall",
+                    "falseAction": {
+                        "type": "click",
+                        "target": {
+                            "selector": "button.w6wAha"
+                        },
+                        "parent": {
+                            "selector": ".oVRXv6"
+                        }
+                    }
+                },
+                "name": "OPEN_OPTIONS"
+            },
+            {
+                "action": {
+                    "type": "ifallowall",
+                    "trueAction": {
+                        "type": "click",
+                        "target": {
+                            "selector": "button.pr0yIU"
+                        },
+                        "parent": {
+                            "selector": ".oVRXv6"
+                        }
+                    },
+                    "falseAction": {
+                        "type": "list",
+                        "actions": [
+                            {
+                                "type": "waitcss",
+                                "target": {
+                                    "selector": "div.ReactModalPortal:has(.mdsz98)"
+                                },
+                                "retries": 10,
+                                "waitTime": 50
+                            },
+                            {
+                                "type": "hide",
+                                "target": {
+                                    "selector": "div.ReactModalPortal:has(.mdsz98)"
+                                }
+                            },
+                            {
+                                "type": "waitcss",
+                                "target": {
+                                    "selector": "#PREFERENCE"
+                                },
+                                "retries": 10,
+                                "waitTime": 250
+                            },
+                            {
+                                "type": "consent",
+                                "consents": [
+                                    {
+                                        "matcher": {
+                                            "type": "checkbox",
+                                            "target": {
+                                                "selector": "#PREFERENCE"
+                                            }
+                                        },
+                                        "toggleAction": {
+                                            "type": "click",
+                                            "target": {
+                                                "selector": "#PREFERENCE"
+                                            }
+                                        },
+                                        "type": "A"
+                                    },
+                                    {
+                                        "matcher": {
+                                            "type": "checkbox",
+                                            "target": {
+                                                "selector": "#STATISTIC"
+                                            }
+                                        },
+                                        "toggleAction": {
+                                            "type": "click",
+                                            "target": {
+                                                "selector": "#STATISTIC"
+                                            }
+                                        },
+                                        "type": "B"
+                                    },
+                                    {
+                                        "matcher": {
+                                            "type": "checkbox",
+                                            "target": {
+                                                "selector": "#MARKETING"
+                                            }
+                                        },
+                                        "toggleAction": {
+                                            "type": "click",
+                                            "target": {
+                                                "selector": "#MARKETING"
+                                            }
+                                        },
+                                        "type": "F"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                },
+                "name": "DO_CONSENT"
+            },
+            {
+                "action": {
+                    "type": "ifallowall",
+                    "falseAction": {
+                        "type": "click",
+                        "target": {
+                            "selector": "form.oDzZxB > button[type=\"submit\"]"
+                        },
+                        "parent": {
+                            "selector": "div.ReactModalPortal:has(.mdsz98)"
+                        }
+                    }
+                },
+                "name": "SAVE_CONSENT"
+            },
+            {
+                "name": "UTILITY"
+            }
+        ]
+    }
+}
